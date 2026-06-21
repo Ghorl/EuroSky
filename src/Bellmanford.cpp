@@ -28,11 +28,21 @@ bool BellmanFordFinder::findRoute(string origin, string destination, double max_
             for (Route* route : outgoing) {
                 int v = graph->getAirportIndex(route->destination->codeIATA);
                 
-                if (!route->origin->available_aircraft.empty()) {
-                    Aircraft* aircraft = route->origin->available_aircraft[0];
-                    double new_time = time_accumulated[u] + route->getFlightTime(aircraft);
-                    double new_cost = distance[u] + cost_model->calculateTotalCost(route, aircraft);
-                    
+                // Seleccionar el avión más barato que pueda volar esta ruta
+                Aircraft* best_aircraft = nullptr;
+                double best_cost = 1e9;
+                for (Aircraft* ac : route->origin->available_aircraft) {
+                    double c = cost_model->calculateTotalCost(route, ac);
+                    if (c != -1 && c < best_cost) {
+                        best_cost = c;
+                        best_aircraft = ac;
+                    }
+                }
+
+                if (best_aircraft) {
+                    double new_time = time_accumulated[u] + route->getFlightTime(best_aircraft);
+                    double new_cost = distance[u] + best_cost;
+
                     if (new_time <= max_hours && new_cost < distance[v]) {
                         distance[v] = new_cost;
                         time_accumulated[v] = new_time;

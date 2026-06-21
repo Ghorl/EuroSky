@@ -141,5 +141,36 @@
   {"origin": "KRK", "destination": "VIE", "distance": 800},
   
   {"origin": "VCE", "destination": "MXP", "distance": 240},
-  {"origin": "VCE", "destination": "FCO", "distance": 390}
+  {"origin": "VCE", "destination": "FCO", "distance": 390},
+
+  {"origin": "SOF", "destination": "OTP", "distance": 550},
+  {"origin": "SOF", "destination": "ATH", "distance": 650},
+  {"origin": "SOF", "destination": "BUD", "distance": 750},
+  {"origin": "SOF", "destination": "VIE", "distance": 1050},
+
+  {"origin": "ALC", "destination": "AGP", "distance": 250},
+  {"origin": "ALC", "destination": "MAD", "distance": 430},
+  {"origin": "ALC", "destination": "BCN", "distance": 510},
+
+  {"origin": "IBZ", "destination": "BCN", "distance": 250},
+  {"origin": "IBZ", "destination": "VLC", "distance": 380},
+  {"origin": "IBZ", "destination": "PMI", "distance": 150},
+
+  {"origin": "NAP", "destination": "FCO", "distance": 230},
+  {"origin": "NAP", "destination": "MXP", "distance": 770},
+  {"origin": "NAP", "destination": "ATH", "distance": 900},
+
+  {"origin": "ARN", "destination": "CPH", "distance": 650},
+  {"origin": "ARN", "destination": "HAM", "distance": 1050},
+  {"origin": "ARN", "destination": "LHR", "distance": 1650},
+  {"origin": "ARN", "destination": "AMS", "distance": 1450},
+
+  {"origin": "ORY", "destination": "MAD", "distance": 1050},
+  {"origin": "ORY", "destination": "BCN", "distance": 940},
+  {"origin": "ORY", "destination": "LHR", "distance": 410},
+  {"origin": "ORY", "destination": "LIS", "distance": 1550},
+
+  {"origin": "SVG", "destination": "MAD", "distance": 470},
+  {"origin": "SVG", "destination": "LIS", "distance": 510},
+  {"origin": "SVG", "destination": "AGP", "distance": 200}
 ]

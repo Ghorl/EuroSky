@@ -51,12 +51,22 @@ void DFSFinder::dfs(int current, int destination, double accumulated_time,
     
     for (Route* route : outgoing) {
         int next = graph->getAirportIndex(route->destination->codeIATA);
-        
-        if (!route->origin->available_aircraft.empty()) {
-            Aircraft* aircraft = route->origin->available_aircraft[0];
-            double new_time = accumulated_time + route->getFlightTime(aircraft);
-            double new_cost = accumulated_cost + cost_model->calculateTotalCost(route, aircraft);
-            
+
+        // Seleccionar el avión más barato que pueda volar esta ruta
+        Aircraft* best_aircraft = nullptr;
+        double best_cost = 1e9;
+        for (Aircraft* ac : route->origin->available_aircraft) {
+            double c = cost_model->calculateTotalCost(route, ac);
+            if (c != -1 && c < best_cost) {
+                best_cost = c;
+                best_aircraft = ac;
+            }
+        }
+
+        if (best_aircraft) {
+            double new_time = accumulated_time + route->getFlightTime(best_aircraft);
+            double new_cost = accumulated_cost + best_cost;
+
             if (!visited[next] && new_time <= max_hours) {
                 parent[next] = current;
                 dfs(next, destination, new_time, new_cost, max_hours);

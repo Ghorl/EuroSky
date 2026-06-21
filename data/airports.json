@@ -261,15 +261,6 @@
     "handling_fee": 900
   },
   {
-    "iata": "BIO",
-    "name": "Bilbao",
-    "country": "Spain",
-    "latitude": 43.3007,
-    "longitude": -2.9111,
-    "landing_fee": 2400,
-    "handling_fee": 800
-  },
-  {
     "iata": "GVA",
     "name": "Geneva Cointrin",
     "country": "Switzerland",

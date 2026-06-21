@@ -63,13 +63,20 @@ bool MonteCarloFinder::randomWalk(string origin, string destination, double max_
         int random_idx = rand() % outgoing.size();
         Route* chosen_route = outgoing[random_idx];
         
-        if (chosen_route->origin->available_aircraft.empty()) {
-            return false; // Sin aviones disponibles
+        // Seleccionar el avión más barato que pueda volar esta ruta
+        Aircraft* aircraft = nullptr;
+        double best_cost = 1e9;
+        for (Aircraft* ac : chosen_route->origin->available_aircraft) {
+            double c = cost_model->calculateTotalCost(chosen_route, ac);
+            if (c != -1 && c < best_cost) {
+                best_cost = c;
+                aircraft = ac;
+            }
         }
-        
-        Aircraft* aircraft = chosen_route->origin->available_aircraft[0];
+        if (!aircraft) return false;
+
         double flight_time = chosen_route->getFlightTime(aircraft);
-        double flight_cost = cost_model->calculateTotalCost(chosen_route, aircraft);
+        double flight_cost = best_cost;
         
         if (accumulated_time + flight_time > max_hours) {
             return false; // Excede tiempo máximo

@@ -7,27 +7,35 @@
             "nombre": "Madrid-Barajas"
         },
         {
-            "iata": "VLC",
-            "lat": 39.4899,
-            "lng": -0.4811,
-            "nombre": "Valencia"
+            "iata": "BCN",
+            "lat": 41.2974,
+            "lng": 2.0833,
+            "nombre": "Barcelona-El Prat"
         }
     ],
-    "algoritmo": "Dijkstra",
-    "avion": "Bombardier Dash 8-400",
-    "costo_total": 4762.5,
+    "algoritmo": "DFS",
+    "avion": "",
+    "costo_total": 6269.375,
     "desglose": {
-        "aterrizaje": 2400.0,
-        "combustible": 1890.0,
-        "mantenimiento": 315.0,
-        "servicios": 900.0,
-        "tripulacion": 630.0
+        "aterrizaje": 3000.0,
+        "combustible": 801.0,
+        "mantenimiento": 456.125,
+        "servicios": 1100.0,
+        "tripulacion": 912.25
     },
-    "destino": "VLC",
+    "destino": "BCN",
     "origen": "MAD",
+    "rentabilidad": {
+        "beneficio_neto": 35730.625,
+        "es_rentable": true,
+        "ingreso_total": 42000.0,
+        "ocupacion_porcentaje": 233.33333333333334,
+        "pasajeros_promedio": 210.0,
+        "precio_promedio_boleto": 200.0
+    },
     "ruta": [
         "MAD",
-        "VLC"
+        "BCN"
     ],
-    "tiempo_total": 0.75
+    "tiempo_total": 1.1125
 }

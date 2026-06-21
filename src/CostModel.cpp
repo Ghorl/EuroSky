@@ -67,6 +67,22 @@ double CostModel::calculateTotalCost(Route* route, Aircraft* aircraft) {
     }
 }
 
+double CostModel::calculateIncome(Route* route) {
+    return route->expected_passengers * route->avg_ticket_price;
+}
+
+double CostModel::calculateNetBenefit(Route* route, Aircraft* aircraft) {
+    double income = calculateIncome(route);
+    double cost   = calculateTotalCost(route, aircraft);
+    if (cost == -1) return -1;
+    return income - cost;
+}
+
+double CostModel::calculateOccupancy(Route* route, Aircraft* aircraft) {
+    if (aircraft->capacity_passengers <= 0) return 0;
+    return (route->expected_passengers / aircraft->capacity_passengers) * 100.0;
+}
+
 void CostModel::printCostBreakdown(Route* route, Aircraft* aircraft) {
     cout << "\n=== DESGLOSE DE COSTOS ===" << endl;
     cout << "Ruta: " << route->origin->codeIATA 

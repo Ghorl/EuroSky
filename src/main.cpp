@@ -211,6 +211,20 @@ int main(int argc, char* argv[]) {
         cout << "\n✗ NO HAY RUTA VÁLIDA" << endl;
         cout << "No se encontró ruta de " << origen << " a " << destino;
         cout << " dentro de " << max_horas << " horas." << endl;
+
+        // Guardar JSON con error para que el frontend lo maneje correctamente
+        ofstream errorFile("resultados_ruta.json");
+        errorFile << "{\n";
+        errorFile << "  \"error\": true,\n";
+        errorFile << "  \"mensaje\": \"No se encontro ruta de " << origen << " a " << destino << " dentro de " << max_horas << " horas\",\n";
+        errorFile << "  \"origen\": \"" << origen << "\",\n";
+        errorFile << "  \"destino\": \"" << destino << "\",\n";
+        errorFile << "  \"algoritmo\": \"" << algoritmo << "\",\n";
+        errorFile << "  \"ruta\": [],\n";
+        errorFile << "  \"aeropuertos\": []\n";
+        errorFile << "}\n";
+        errorFile.close();
+        cout << "[✓] Resultado (sin ruta) guardado en resultados_ruta.json" << endl;
     }
     
     cout << "═══════════════════════════════════════════════════════" << endl;
