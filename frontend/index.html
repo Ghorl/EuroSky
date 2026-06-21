@@ -4,653 +4,824 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EuroSky Connect - Route Optimizer</title>
+    <title>EuroSky Connect</title>
     <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY"></script>
     <style>
-        * {
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --text: #0f172a;
+            --muted: #64748b;
+            --accent: #2563eb;
+            --accent-lt: #eff6ff;
+            --success: #16a34a;
+            --success-lt: #f0fdf4;
+            --success-bd: #bbf7d0;
+            --danger: #dc2626;
+            --danger-lt: #fef2f2;
+            --danger-bd: #fecaca;
+            --radius: 10px;
+            --shadow: 0 1px 3px rgba(0, 0, 0, .06), 0 1px 2px rgba(0, 0, 0, .04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, .08);
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             min-height: 100vh;
-            padding: 20px;
+            font-size: 14px;
+            line-height: 1.5;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
+        /* ── NAV ── */
+        nav {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 32px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
-        header {
-            text-align: center;
-            color: white;
-            margin-bottom: 40px;
-        }
-
-        header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .control-panel {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-weight: 600;
-            color: #333;
+            font-size: 15px;
+            color: var(--text);
+            text-decoration: none;
         }
 
-        select,
-        input {
+        .nav-brand span.icon {
+            font-size: 20px;
+        }
+
+        .nav-badge {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--accent);
+            background: var(--accent-lt);
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+        /* ── LAYOUT ── */
+        .page {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 28px 24px;
+        }
+
+        .grid-main {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        /* ── CARD ── */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .card-header {
+            padding: 18px 20px 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-header h2 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: -.01em;
+        }
+
+        .card-header p {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .card-body {
+            padding: 18px 20px;
+        }
+
+        /* ── FORM ── */
+        .field {
+            margin-bottom: 14px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--muted);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+
+        .field select,
+        .field input {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s;
-        }
-
-        select:focus,
-        input:focus {
+            padding: 9px 12px;
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            font-size: 13px;
+            color: var(--text);
+            background: var(--surface);
+            appearance: none;
             outline: none;
-            border-color: #667eea;
+            transition: border-color .15s;
         }
 
-        button {
+        .field select:focus,
+        .field input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .1);
+        }
+
+        .select-wrap {
+            position: relative;
+        }
+
+        .select-wrap::after {
+            content: '';
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid var(--muted);
+            pointer-events: none;
+        }
+
+        .algo-desc {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 6px;
+            padding: 7px 10px;
+            background: var(--bg);
+            border-radius: 6px;
+            border-left: 3px solid var(--accent);
+            line-height: 1.4;
+        }
+
+        /* ── BUTTON ── */
+        .btn-primary {
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            padding: 10px;
+            background: var(--accent);
+            color: #fff;
             border: none;
             border-radius: 8px;
-            font-size: 1.1em;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: background .15s, transform .1s;
+            margin-top: 4px;
+            letter-spacing: .01em;
         }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+        .btn-primary:hover {
+            background: #1d4ed8;
         }
 
-        button:active {
-            transform: translateY(0);
+        .btn-primary:active {
+            transform: scale(.99);
         }
 
-        .algorithm-info {
-            background: #f0f4ff;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: #555;
-            border-left: 4px solid #667eea;
-        }
-
+        /* ── MAP ── */
         #map {
             width: 100%;
             height: 500px;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
         }
 
-        .results {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            display: none;
-        }
-
-        .results.show {
-            display: block;
-        }
-
-        .route-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .info-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .info-card h3 {
-            font-size: 0.9em;
-            opacity: 0.9;
-            margin-bottom: 10px;
-        }
-
-        .info-card .value {
-            font-size: 1.8em;
-            font-weight: bold;
-        }
-
-        .cost-breakdown {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-
-        .cost-breakdown h3 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .cost-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .cost-item:last-child {
-            border-bottom: none;
-        }
-
-        .cost-item label {
-            margin: 0;
-            font-weight: 500;
-        }
-
-        .cost-item .amount {
-            font-weight: 600;
-            color: #667eea;
-        }
-
-        .profitability {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-
-        .profitability h3 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .profit-cards {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .profit-card {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .profit-card .p-label {
-            font-size: 0.8em;
-            color: #888;
-            margin-bottom: 6px;
-        }
-
-        .profit-card .p-value {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .benefit-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-
-        .benefit-row.rentable {
-            background: #e8f5e9;
-            color: #2e7d32;
-            border: 2px solid #a5d6a7;
-        }
-
-        .benefit-row.no-rentable {
-            background: #ffebee;
-            color: #c62828;
-            border: 2px solid #ef9a9a;
-        }
-
+        /* ── LOADING / ERROR ── */
         .loading {
             display: none;
-            text-align: center;
-            padding: 20px;
-            color: #667eea;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 10px;
+            padding: 9px 12px;
+            background: var(--bg);
+            border-radius: 7px;
         }
 
         .loading.show {
-            display: block;
+            display: flex;
         }
 
-        .error {
+        .spinner {
+            width: 14px;
+            height: 14px;
+            border: 2px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin .6s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .error-msg {
             display: none;
-            background: #fee;
-            color: #c33;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
+            font-size: 12px;
+            color: var(--danger);
+            background: var(--danger-lt);
+            border: 1px solid var(--danger-bd);
+            padding: 9px 12px;
+            border-radius: 7px;
+            margin-top: 10px;
         }
 
-        .error.show {
+        .error-msg.show {
             display: block;
         }
 
-        .route-path {
-            font-size: 1.2em;
-            font-weight: 600;
-            color: #667eea;
-            margin-bottom: 15px;
+        /* ── RESULTS ── */
+        .results-section {
+            display: none;
+            margin-top: 20px;
         }
 
-        @media (max-width: 1024px) {
-            .main-content {
+        .results-section.show {
+            display: block;
+        }
+
+        .route-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .route-title h2 {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .route-path-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent);
+            background: var(--accent-lt);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        /* Stats row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .stat-card .s-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            margin-bottom: 4px;
+        }
+
+        .stat-card .s-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -.02em;
+        }
+
+        .stat-card .s-sub {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        /* Two-column bottom */
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* Cost table */
+        .cost-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cost-table tr {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cost-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .cost-table td {
+            padding: 10px 0;
+            font-size: 13px;
+        }
+
+        .cost-table td:last-child {
+            text-align: right;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .cost-table td:first-child {
+            color: var(--muted);
+        }
+
+        .cost-table tr.total td {
+            font-weight: 700;
+            color: var(--text);
+            font-size: 14px;
+            padding-top: 12px;
+            border-top: 2px solid var(--border);
+            border-bottom: none;
+        }
+
+        /* Profit cards */
+        .profit-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .profit-item {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+
+        .profit-item .pi-label {
+            font-size: 11px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            margin-bottom: 3px;
+        }
+
+        .profit-item .pi-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .benefit-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .benefit-banner.positive {
+            background: var(--success-lt);
+            color: var(--success);
+            border: 1px solid var(--success-bd);
+        }
+
+        .benefit-banner.negative {
+            background: var(--danger-lt);
+            color: var(--danger);
+            border: 1px solid var(--danger-bd);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 960px) {
+            .grid-main {
                 grid-template-columns: 1fr;
             }
 
-            .route-info {
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .stats-row {
                 grid-template-columns: 1fr 1fr;
             }
 
-            header h1 {
-                font-size: 2em;
+            .profit-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            nav {
+                padding: 0 16px;
+            }
+
+            .page {
+                padding: 16px;
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <h1>✈️ EuroSky Connect</h1>
-            <p>Optimizador de Rutas Aéreas - Busca tu ruta más económica con 5 algoritmos</p>
-        </header>
 
-        <div class="main-content">
-            <!-- Control Panel -->
-            <div class="control-panel">
-                <h2 style="margin-bottom: 30px; color: #333;">Buscar Ruta</h2>
+    <!-- NAV -->
+    <nav>
+        <a class="nav-brand" href="#">
+            <span class="icon">✈</span>
+            EuroSky Connect
+        </a>
+        <span class="nav-badge">Route Optimizer</span>
+    </nav>
 
-                <div class="form-group">
-                    <label for="origin">Aeropuerto de Origen:</label>
-                    <select id="origin"></select>
+    <div class="page">
+        <div class="grid-main">
+
+            <!-- SEARCH PANEL -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Buscar Ruta</h2>
+                    <p>Selecciona origen, destino y algoritmo</p>
                 </div>
+                <div class="card-body">
 
-                <div class="form-group">
-                    <label for="destination">Aeropuerto de Destino:</label>
-                    <select id="destination"></select>
-                </div>
-
-                <div class="form-group">
-                    <label for="maxHours">Tiempo Máximo de Vuelo (horas):</label>
-                    <input type="number" id="maxHours" value="8" min="1" max="24" step="0.5">
-                </div>
-
-                <div class="form-group">
-                    <label for="algorithm">Algoritmo de Optimización:</label>
-                    <select id="algorithm">
-                        <option value="dijkstra">Dijkstra (Óptimo - Garantizado)</option>
-                        <option value="bfs">BFS (Ruta Más Corta en Hops)</option>
-                        <option value="dfs">DFS (Búsqueda en Profundidad)</option>
-                        <option value="montecarlo">Monte Carlo (Probabilístico - 1000 iter)</option>
-                        <option value="bellmanford">Bellman-Ford (Relajación Progresiva)</option>
-                    </select>
-                    <div class="algorithm-info" id="algorithmInfo">
-                        Dijkstra encuentra la ruta óptima garantizada minimizando costos.
+                    <div class="field">
+                        <label>Aeropuerto de Origen</label>
+                        <div class="select-wrap">
+                            <select id="origin"></select>
+                        </div>
                     </div>
+
+                    <div class="field">
+                        <label>Aeropuerto de Destino</label>
+                        <div class="select-wrap">
+                            <select id="destination"></select>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Tiempo Máximo (horas)</label>
+                        <input type="number" id="maxHours" value="8" min="1" max="24" step="0.5">
+                    </div>
+
+                    <div class="field">
+                        <label>Algoritmo</label>
+                        <div class="select-wrap">
+                            <select id="algorithm">
+                                <option value="dijkstra">Dijkstra — Óptimo garantizado</option>
+                                <option value="bfs">BFS — Menor número de escalas</option>
+                                <option value="dfs">DFS — Búsqueda en profundidad</option>
+                                <option value="montecarlo">Monte Carlo — Probabilístico</option>
+                                <option value="bellmanford">Bellman-Ford — Relajación progresiva</option>
+                            </select>
+                        </div>
+                        <div class="algo-desc" id="algoDesc">
+                            Dijkstra garantiza la ruta de menor costo. Complejidad O(E log V).
+                        </div>
+                    </div>
+
+                    <button class="btn-primary" onclick="searchRoute()">Buscar Ruta Óptima</button>
+
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        Calculando ruta óptima…
+                    </div>
+
+                    <div class="error-msg" id="error"></div>
                 </div>
-
-                <button onclick="searchRoute()">🔍 Buscar Ruta Óptima</button>
-
-                <div class="loading" id="loading">
-                    <p>Buscando ruta óptima...</p>
-                </div>
-
-                <div class="error" id="error"></div>
             </div>
 
-            <!-- Map -->
+            <!-- MAP -->
             <div id="map"></div>
+
         </div>
 
-        <!-- Results -->
-        <div class="results" id="results">
-            <h2 style="margin-bottom: 20px; color: #333;">Resultado de la Búsqueda</h2>
+        <!-- RESULTS -->
+        <div class="results-section" id="results">
 
-            <div class="route-path" id="routePath"></div>
+            <div class="route-title">
+                <h2>Resultado</h2>
+                <span class="route-path-badge" id="routePath">—</span>
+            </div>
 
-            <div class="route-info">
-                <div class="info-card">
-                    <h3>Costo Total</h3>
-                    <div class="value" id="totalCost">€0</div>
+            <!-- 4 stats -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="s-label">Costo Total</div>
+                    <div class="s-value" id="totalCost">—</div>
+                    <div class="s-sub">operativo</div>
                 </div>
-                <div class="info-card">
-                    <h3>Tiempo de Vuelo</h3>
-                    <div class="value" id="totalTime">0h</div>
+                <div class="stat-card">
+                    <div class="s-label">Tiempo de Vuelo</div>
+                    <div class="s-value" id="totalTime">—</div>
+                    <div class="s-sub">horas</div>
                 </div>
-                <div class="info-card">
-                    <h3>Avión Seleccionado</h3>
-                    <div class="value" id="aircraftName">-</div>
+                <div class="stat-card">
+                    <div class="s-label">Avión</div>
+                    <div class="s-value" style="font-size:13px;margin-top:4px" id="aircraftName">—</div>
+                    <div class="s-sub" id="algorithmUsed">—</div>
                 </div>
-                <div class="info-card">
-                    <h3>Algoritmo Usado</h3>
-                    <div class="value" id="algorithmUsed">-</div>
+                <div class="stat-card">
+                    <div class="s-label">Escalas</div>
+                    <div class="s-value" id="totalStops">—</div>
+                    <div class="s-sub">aeropuertos</div>
                 </div>
             </div>
 
-            <div class="cost-breakdown">
-                <h3>Desglose de Costos</h3>
-                <div class="cost-item">
-                    <label>Combustible:</label>
-                    <span class="amount" id="costFuel">€0</span>
-                </div>
-                <div class="cost-item">
-                    <label>Tripulación:</label>
-                    <span class="amount" id="costCrew">€0</span>
-                </div>
-                <div class="cost-item">
-                    <label>Mantenimiento:</label>
-                    <span class="amount" id="costMaintenance">€0</span>
-                </div>
-                <div class="cost-item">
-                    <label>Tasas de Aterrizaje:</label>
-                    <span class="amount" id="costLanding">€0</span>
-                </div>
-                <div class="cost-item">
-                    <label>Servicios de Handling:</label>
-                    <span class="amount" id="costHandling">€0</span>
-                </div>
-                <div class="cost-item" style="border-top: 2px solid #667eea; margin-top: 10px; padding-top: 10px;">
-                    <label style="font-weight: bold;">TOTAL:</label>
-                    <span class="amount" style="font-size: 1.2em;" id="costTotal">€0</span>
-                </div>
-            </div>
+            <!-- Desglose + Rentabilidad -->
+            <div class="results-grid">
 
-            <div class="profitability">
-                <h3>Rentabilidad de la Ruta</h3>
-                <div class="profit-cards">
-                    <div class="profit-card">
-                        <div class="p-label">Pasajeros Estimados</div>
-                        <div class="p-value" id="profitPassengers">0</div>
+                <!-- Desglose de costos -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Desglose de Costos</h2>
                     </div>
-                    <div class="profit-card">
-                        <div class="p-label">Precio Promedio Boleto</div>
-                        <div class="p-value" id="profitTicket">€0</div>
-                    </div>
-                    <div class="profit-card">
-                        <div class="p-label">Ingreso Total</div>
-                        <div class="p-value" id="profitIncome">€0</div>
-                    </div>
-                    <div class="profit-card">
-                        <div class="p-label">Ocupación</div>
-                        <div class="p-value" id="profitOccupancy">0%</div>
+                    <div class="card-body">
+                        <table class="cost-table">
+                            <tr>
+                                <td>Combustible</td>
+                                <td id="costFuel">—</td>
+                            </tr>
+                            <tr>
+                                <td>Tripulación</td>
+                                <td id="costCrew">—</td>
+                            </tr>
+                            <tr>
+                                <td>Mantenimiento</td>
+                                <td id="costMaintenance">—</td>
+                            </tr>
+                            <tr>
+                                <td>Tasas de aterrizaje</td>
+                                <td id="costLanding">—</td>
+                            </tr>
+                            <tr>
+                                <td>Servicios de handling</td>
+                                <td id="costHandling">—</td>
+                            </tr>
+                            <tr class="total">
+                                <td>Total operativo</td>
+                                <td id="costTotal">—</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
-                <div class="benefit-row" id="benefitRow">
-                    <span id="benefitLabel">Beneficio Neto:</span>
-                    <span id="profitNet">€0</span>
+
+                <!-- Rentabilidad -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Rentabilidad</h2>
+                        <p>Ingreso estimado vs. costo operativo</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="profit-grid">
+                            <div class="profit-item">
+                                <div class="pi-label">Pasajeros Est.</div>
+                                <div class="pi-value" id="profitPassengers">—</div>
+                            </div>
+                            <div class="profit-item">
+                                <div class="pi-label">Precio Boleto</div>
+                                <div class="pi-value" id="profitTicket">—</div>
+                            </div>
+                            <div class="profit-item">
+                                <div class="pi-label">Ingreso Total</div>
+                                <div class="pi-value" id="profitIncome">—</div>
+                            </div>
+                            <div class="profit-item">
+                                <div class="pi-label">Ocupación</div>
+                                <div class="pi-value" id="profitOccupancy">—</div>
+                            </div>
+                        </div>
+                        <div class="benefit-banner" id="benefitBanner">
+                            <span id="benefitLabel">Beneficio Neto</span>
+                            <span id="profitNet">—</span>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
 
     <script>
-        let map;
-        let routePolyline;
+        let map, routePolyline;
 
-        // Información de algoritmos
-        const algorithmDescriptions = {
-            dijkstra: "Dijkstra encuentra la ruta ÓPTIMA garantizada minimizando costos. Usa priority queue. Complejidad: O(E log V).",
-            bfs: "BFS encuentra la ruta más corta en número de hops (no en costo). Explora en amplitud.",
-            dfs: "DFS explora profundidad primero. Puede encontrar rutas pero no garantiza óptimo.",
-            montecarlo: "Monte Carlo prueba 1000 caminos aleatorios. Probabilístico, puede no encontrar óptimo.",
-            bellmanford: "Bellman-Ford usa relajación progresiva. Más lento que Dijkstra pero flexible."
+        const algoDescriptions = {
+            dijkstra: 'Dijkstra garantiza la ruta de menor costo. Complejidad O(E log V).',
+            bfs: 'BFS encuentra la ruta con menor número de escalas (hops), no por costo.',
+            dfs: 'DFS explora en profundidad. Encuentra rutas pero no garantiza el óptimo.',
+            montecarlo: 'Monte Carlo evalúa 1000 caminos aleatorios y selecciona el mejor.',
+            bellmanford: 'Bellman-Ford relaja aristas progresivamente. Robusto ante pesos variados.'
         };
 
-        // Actualizar descripción al cambiar algoritmo
         document.getElementById('algorithm').addEventListener('change', function () {
-            const selected = this.value;
-            document.getElementById('algorithmInfo').textContent = algorithmDescriptions[selected];
+            document.getElementById('algoDesc').textContent = algoDescriptions[this.value];
         });
 
-        // CARGAR AEROPUERTOS DESDE JSON
         async function loadAirports() {
             try {
-                const response = await fetch('../data/airports.json');
-                const airports = await response.json();
+                const res = await fetch('../data/airports.json');
+                const data = await res.json();
+                const origin = document.getElementById('origin');
+                const dest = document.getElementById('destination');
 
-                const originSelect = document.getElementById('origin');
-                const destSelect = document.getElementById('destination');
-
-                // Agregar opción por defecto a origin
-                const defaultOrigin = document.createElement('option');
-                defaultOrigin.value = '';
-                defaultOrigin.textContent = 'Selecciona un aeropuerto...';
-                originSelect.appendChild(defaultOrigin);
-
-                // Agregar opción por defecto a destination
-                const defaultDest = document.createElement('option');
-                defaultDest.value = '';
-                defaultDest.textContent = 'Selecciona un aeropuerto...';
-                destSelect.appendChild(defaultDest);
-
-                // Agregar todos los aeropuertos a ambos selects
-                airports.forEach(airport => {
-                    const option1 = document.createElement('option');
-                    option1.value = airport.iata;
-                    option1.textContent = `${airport.iata} - ${airport.name} (${airport.country})`;
-                    originSelect.appendChild(option1);
-
-                    const option2 = document.createElement('option');
-                    option2.value = airport.iata;
-                    option2.textContent = `${airport.iata} - ${airport.name} (${airport.country})`;
-                    destSelect.appendChild(option2);
+                [origin, dest].forEach(sel => {
+                    const def = document.createElement('option');
+                    def.value = '';
+                    def.textContent = 'Selecciona un aeropuerto…';
+                    sel.appendChild(def);
                 });
 
-                console.log(`[✓] Cargados ${airports.length} aeropuertos`);
-            } catch (error) {
-                console.error('Error cargando aeropuertos:', error);
-                showError('Error al cargar aeropuertos: ' + error.message);
+                data.forEach(a => {
+                    const label = `${a.iata} — ${a.name} (${a.country})`;
+                    [origin, dest].forEach(sel => {
+                        const opt = document.createElement('option');
+                        opt.value = a.iata;
+                        opt.textContent = label;
+                        sel.appendChild(opt);
+                    });
+                });
+            } catch (e) {
+                showError('Error al cargar aeropuertos: ' + e.message);
             }
         }
 
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 4,
-                center: { lat: 48.8566, lng: 2.3522 }, // Centered on Europe
-                mapTypeId: 'roadmap'
+                center: { lat: 48.8566, lng: 2.3522 },
+                mapTypeId: 'roadmap',
+                styles: [
+                    { featureType: 'all', elementType: 'labels.text.fill', stylers: [{ color: '#64748b' }] },
+                    { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#e2e8f0' }] },
+                    { featureType: 'landscape', elementType: 'geometry', stylers: [{ color: '#f8fafc' }] },
+                    { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#ffffff' }] },
+                    { featureType: 'road', elementType: 'geometry.stroke', stylers: [{ color: '#e2e8f0' }] },
+                    { featureType: 'administrative.country', elementType: 'geometry.stroke', stylers: [{ color: '#cbd5e1' }] },
+                    { featureType: 'poi', stylers: [{ visibility: 'off' }] },
+                    { featureType: 'transit', stylers: [{ visibility: 'off' }] }
+                ]
             });
         }
 
         function searchRoute() {
             const origin = document.getElementById('origin').value;
-            const destination = document.getElementById('destination').value;
-            const maxHours = document.getElementById('maxHours').value;
-            const algorithm = document.getElementById('algorithm').value;
+            const dest = document.getElementById('destination').value;
+            const hours = document.getElementById('maxHours').value;
+            const algo = document.getElementById('algorithm').value;
 
-            if (!origin || !destination) {
-                showError('Por favor selecciona origen y destino');
-                return;
-            }
-
-            if (origin === destination) {
-                showError('El origen y destino deben ser diferentes');
-                return;
-            }
+            if (!origin || !dest) return showError('Selecciona origen y destino.');
+            if (origin === dest) return showError('El origen y destino deben ser distintos.');
 
             showLoading(true);
             hideError();
 
-            // Enviar POST al servidor Node.js
             fetch('/api/search-route', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    origin: origin,
-                    destination: destination,
-                    maxHours: parseFloat(maxHours),
-                    algorithm: algorithm
-                })
+                body: JSON.stringify({ origin, destination: dest, maxHours: parseFloat(hours), algorithm: algo })
             })
-                .then(response => response.json())
+                .then(r => r.json())
                 .then(data => {
-                    if (data.error) {
-                        throw new Error(data.error);
-                    }
+                    if (data.error) throw new Error(data.mensaje || data.error);
                     displayResults(data);
                     showLoading(false);
                 })
-                .catch(error => {
-                    showError('Error: ' + error.message);
+                .catch(err => {
+                    showError(err.message);
                     showLoading(false);
                 });
         }
 
+        function fmt(n) { return '€' + Number(n).toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+
         function displayResults(data) {
-            // Mostrar ruta
-            document.getElementById('routePath').textContent =
-                '🛫 ' + data.ruta.join(' → ') + ' 🛬';
+            // Route path badge
+            document.getElementById('routePath').textContent = data.ruta.join(' → ');
 
-            // Mostrar información
-            document.getElementById('totalCost').textContent =
-                '€' + data.costo_total.toFixed(2);
-            document.getElementById('totalTime').textContent =
-                data.tiempo_total.toFixed(2) + 'h';
-            document.getElementById('aircraftName').textContent =
-                data.avion;
-            document.getElementById('algorithmUsed').textContent =
-                data.algoritmo || 'Desconocido';
+            // Stats
+            document.getElementById('totalCost').textContent = fmt(data.costo_total);
+            document.getElementById('totalTime').textContent = Number(data.tiempo_total).toFixed(2) + 'h';
+            document.getElementById('aircraftName').textContent = data.avion || '—';
+            document.getElementById('algorithmUsed').textContent = data.algoritmo || '—';
+            document.getElementById('totalStops').textContent = data.ruta.length;
 
-            // Mostrar desglose
-            document.getElementById('costFuel').textContent =
-                '€' + data.desglose.combustible.toFixed(2);
-            document.getElementById('costCrew').textContent =
-                '€' + data.desglose.tripulacion.toFixed(2);
-            document.getElementById('costMaintenance').textContent =
-                '€' + data.desglose.mantenimiento.toFixed(2);
-            document.getElementById('costLanding').textContent =
-                '€' + data.desglose.aterrizaje.toFixed(2);
-            document.getElementById('costHandling').textContent =
-                '€' + data.desglose.servicios.toFixed(2);
-            document.getElementById('costTotal').textContent =
-                '€' + data.costo_total.toFixed(2);
+            // Cost breakdown
+            document.getElementById('costFuel').textContent = fmt(data.desglose.combustible);
+            document.getElementById('costCrew').textContent = fmt(data.desglose.tripulacion);
+            document.getElementById('costMaintenance').textContent = fmt(data.desglose.mantenimiento);
+            document.getElementById('costLanding').textContent = fmt(data.desglose.aterrizaje);
+            document.getElementById('costHandling').textContent = fmt(data.desglose.servicios);
+            document.getElementById('costTotal').textContent = fmt(data.costo_total);
 
-            // Mostrar rentabilidad
+            // Rentabilidad
             if (data.rentabilidad) {
                 const r = data.rentabilidad;
-                document.getElementById('profitPassengers').textContent =
-                    Math.round(r.pasajeros_promedio) + ' pax';
-                document.getElementById('profitTicket').textContent =
-                    '€' + r.precio_promedio_boleto.toFixed(2);
-                document.getElementById('profitIncome').textContent =
-                    '€' + r.ingreso_total.toFixed(2);
-                document.getElementById('profitOccupancy').textContent =
-                    r.ocupacion_porcentaje.toFixed(1) + '%';
+                document.getElementById('profitPassengers').textContent = Math.round(r.pasajeros_promedio) + ' pax';
+                document.getElementById('profitTicket').textContent = fmt(r.precio_promedio_boleto);
+                document.getElementById('profitIncome').textContent = fmt(r.ingreso_total);
+                document.getElementById('profitOccupancy').textContent = r.ocupacion_porcentaje.toFixed(1) + '%';
 
-                const benefitRow = document.getElementById('benefitRow');
-                document.getElementById('profitNet').textContent =
-                    '€' + r.beneficio_neto.toFixed(2);
+                const banner = document.getElementById('benefitBanner');
+                document.getElementById('profitNet').textContent = fmt(r.beneficio_neto);
 
                 if (r.es_rentable) {
-                    benefitRow.className = 'benefit-row rentable';
-                    document.getElementById('benefitLabel').textContent = '✅ Beneficio Neto:';
+                    banner.className = 'benefit-banner positive';
+                    document.getElementById('benefitLabel').textContent = '✓ Beneficio Neto';
                 } else {
-                    benefitRow.className = 'benefit-row no-rentable';
-                    document.getElementById('benefitLabel').textContent = '❌ Pérdida Neta:';
+                    banner.className = 'benefit-banner negative';
+                    document.getElementById('benefitLabel').textContent = '✗ Pérdida Neta';
                 }
             }
 
-            // Mostrar resultados
             document.getElementById('results').classList.add('show');
-
-            // LIMPIAR MAPA ANTERIOR
-            if (routePolyline) {
-                routePolyline.setMap(null);
-            }
-
-            // Dibujar nueva ruta
-            drawRouteOnMap(data.aeropuertos);
+            drawRoute(data.aeropuertos);
         }
 
-        function drawRouteOnMap(airports) {
-            // Limpiar polyline anterior
-            if (routePolyline) {
-                routePolyline.setMap(null);
-            }
+        function drawRoute(airports) {
+            if (routePolyline) routePolyline.setMap(null);
 
-            // Crear path
-            const path = airports.map(apt => ({
-                lat: parseFloat(apt.lat),
-                lng: parseFloat(apt.lng)
-            }));
+            const path = airports.map(a => ({ lat: parseFloat(a.lat), lng: parseFloat(a.lng) }));
 
-            // Dibujar línea
             routePolyline = new google.maps.Polyline({
-                path: path,
+                path,
                 geodesic: true,
-                strokeColor: '#667eea',
-                strokeOpacity: 0.8,
-                strokeWeight: 3,
-                map: map
+                strokeColor: '#2563eb',
+                strokeOpacity: 0.9,
+                strokeWeight: 2.5,
+                map
             });
 
-            // Agregar marcadores
-            airports.forEach(apt => {
+            airports.forEach((a, i) => {
                 new google.maps.Marker({
-                    position: {
-                        lat: parseFloat(apt.lat),
-                        lng: parseFloat(apt.lng)
+                    position: { lat: parseFloat(a.lat), lng: parseFloat(a.lng) },
+                    map,
+                    title: `${a.iata} — ${a.nombre}`,
+                    label: {
+                        text: a.iata,
+                        fontSize: '10px',
+                        fontWeight: '600',
+                        color: '#0f172a'
                     },
-                    map: map,
-                    title: apt.iata + ' - ' + apt.nombre
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        scale: i === 0 || i === airports.length - 1 ? 7 : 5,
+                        fillColor: i === 0 || i === airports.length - 1 ? '#2563eb' : '#ffffff',
+                        fillOpacity: 1,
+                        strokeColor: '#2563eb',
+                        strokeWeight: 2
+                    }
                 });
             });
 
-            // Ajustar zoom al mapa
             const bounds = new google.maps.LatLngBounds();
-            path.forEach(point => bounds.extend(point));
+            path.forEach(p => bounds.extend(p));
             map.fitBounds(bounds);
         }
 
@@ -658,17 +829,16 @@
             document.getElementById('loading').classList.toggle('show', show);
         }
 
-        function showError(message) {
-            const errorDiv = document.getElementById('error');
-            errorDiv.textContent = message;
-            errorDiv.classList.add('show');
+        function showError(msg) {
+            const el = document.getElementById('error');
+            el.textContent = msg;
+            el.classList.add('show');
         }
 
         function hideError() {
             document.getElementById('error').classList.remove('show');
         }
 
-        // Inicializar al cargar
         window.addEventListener('load', () => {
             loadAirports();
             initMap();

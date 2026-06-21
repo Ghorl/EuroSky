@@ -1,41 +1,62 @@
 {
     "aeropuertos": [
         {
-            "iata": "MAD",
-            "lat": 40.4168,
-            "lng": -3.7038,
-            "nombre": "Madrid-Barajas"
+            "iata": "SVQ",
+            "lat": 37.4181,
+            "lng": -5.8931,
+            "nombre": "Seville-San Pablo"
+        },
+        {
+            "iata": "AGP",
+            "lat": 36.6749,
+            "lng": -4.4991,
+            "nombre": "Málaga-Costa del Sol"
+        },
+        {
+            "iata": "ALC",
+            "lat": 38.2822,
+            "lng": -0.5582,
+            "nombre": "Alicante-Elche"
         },
         {
             "iata": "BCN",
             "lat": 41.2974,
             "lng": 2.0833,
             "nombre": "Barcelona-El Prat"
+        },
+        {
+            "iata": "AMS",
+            "lat": 52.3086,
+            "lng": 4.7639,
+            "nombre": "Amsterdam Airport Schiphol"
         }
     ],
     "algoritmo": "DFS",
     "avion": "",
-    "costo_total": 6269.375,
+    "costo_total": 24288.571428571428,
     "desglose": {
-        "aterrizaje": 3000.0,
-        "combustible": 801.0,
-        "mantenimiento": 456.125,
-        "servicios": 1100.0,
-        "tripulacion": 912.25
+        "aterrizaje": 12200.0,
+        "combustible": 2802.8571428571427,
+        "mantenimiento": 1678.5714285714284,
+        "servicios": 4250.0,
+        "tripulacion": 3357.142857142857
     },
-    "destino": "BCN",
-    "origen": "MAD",
+    "destino": "AMS",
+    "origen": "SVQ",
     "rentabilidad": {
-        "beneficio_neto": 35730.625,
+        "beneficio_neto": 126111.42857142858,
         "es_rentable": true,
-        "ingreso_total": 42000.0,
-        "ocupacion_porcentaje": 233.33333333333334,
-        "pasajeros_promedio": 210.0,
-        "precio_promedio_boleto": 200.0
+        "ingreso_total": 150400.0,
+        "ocupacion_porcentaje": 267.52136752136755,
+        "pasajeros_promedio": 215.0,
+        "precio_promedio_boleto": 180.0
     },
     "ruta": [
-        "MAD",
-        "BCN"
+        "SVQ",
+        "AGP",
+        "ALC",
+        "BCN",
+        "AMS"
     ],
-    "tiempo_total": 1.1125
+    "tiempo_total": 4.142857142857142
 }
