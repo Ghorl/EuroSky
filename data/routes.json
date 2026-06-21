@@ -1,0 +1,145 @@
+[
+  {"origin": "MAD", "destination": "BCN", "distance": 623},
+  {"origin": "MAD", "destination": "AMS", "distance": 1800},
+  {"origin": "MAD", "destination": "CDG", "distance": 1050},
+  {"origin": "MAD", "destination": "LHR", "distance": 1250},
+  {"origin": "MAD", "destination": "VIE", "distance": 2200},
+  {"origin": "MAD", "destination": "PRG", "distance": 1700},
+  {"origin": "MAD", "destination": "FRA", "distance": 1400},
+  {"origin": "MAD", "destination": "VLC", "distance": 420},
+  {"origin": "MAD", "destination": "SVQ", "distance": 470},
+  {"origin": "MAD", "destination": "AGP", "distance": 450},
+  {"origin": "MAD", "destination": "LIS", "distance": 510},
+  {"origin": "MAD", "destination": "MXP", "distance": 1300},
+  {"origin": "MAD", "destination": "ZRH", "distance": 1200},
+  {"origin": "MAD", "destination": "DUB", "distance": 1200},
+  
+  {"origin": "BCN", "destination": "AMS", "distance": 1200},
+  {"origin": "BCN", "destination": "CDG", "distance": 940},
+  {"origin": "BCN", "destination": "LHR", "distance": 1150},
+  {"origin": "BCN", "destination": "VIE", "distance": 1800},
+  {"origin": "BCN", "destination": "FRA", "distance": 1100},
+  {"origin": "BCN", "destination": "ZRH", "distance": 760},
+  {"origin": "BCN", "destination": "VLC", "distance": 300},
+  {"origin": "BCN", "destination": "PMI", "distance": 200},
+  {"origin": "BCN", "destination": "IBZ", "distance": 250},
+  {"origin": "BCN", "destination": "MXP", "distance": 650},
+  {"origin": "BCN", "destination": "STR", "distance": 950},
+  
+  {"origin": "AMS", "destination": "CDG", "distance": 430},
+  {"origin": "AMS", "destination": "LHR", "distance": 350},
+  {"origin": "AMS", "destination": "FRA", "distance": 560},
+  {"origin": "AMS", "destination": "BRU", "distance": 200},
+  {"origin": "AMS", "destination": "HAM", "distance": 400},
+  {"origin": "AMS", "destination": "VIE", "distance": 1100},
+  {"origin": "AMS", "destination": "BUD", "distance": 1300},
+  {"origin": "AMS", "destination": "WAW", "distance": 1150},
+  
+  {"origin": "CDG", "destination": "LHR", "distance": 340},
+  {"origin": "CDG", "destination": "FRA", "distance": 560},
+  {"origin": "CDG", "destination": "BRU", "distance": 310},
+  {"origin": "CDG", "destination": "ZRH", "distance": 560},
+  {"origin": "CDG", "destination": "MXP", "distance": 700},
+  {"origin": "CDG", "destination": "VIE", "distance": 1200},
+  {"origin": "CDG", "destination": "STR", "distance": 630},
+  {"origin": "CDG", "destination": "HAM", "distance": 750},
+  
+  {"origin": "LHR", "destination": "FRA", "distance": 700},
+  {"origin": "LHR", "destination": "DUB", "distance": 460},
+  {"origin": "LHR", "destination": "AMS", "distance": 350},
+  {"origin": "LHR", "destination": "ZRH", "distance": 750},
+  {"origin": "LHR", "destination": "CPH", "distance": 950},
+  {"origin": "LHR", "destination": "ARN", "distance": 1650},
+  
+  {"origin": "FRA", "destination": "ZRH", "distance": 280},
+  {"origin": "FRA", "destination": "VIE", "distance": 700},
+  {"origin": "FRA", "destination": "MXP", "distance": 450},
+  {"origin": "FRA", "destination": "STR", "distance": 240},
+  {"origin": "FRA", "destination": "MUC", "distance": 330},
+  {"origin": "FRA", "destination": "BUD", "distance": 900},
+  {"origin": "FRA", "destination": "PRG", "distance": 550},
+  
+  {"origin": "VIE", "destination": "PRG", "distance": 330},
+  {"origin": "VIE", "destination": "BUD", "distance": 220},
+  {"origin": "VIE", "destination": "BRU", "distance": 1000},
+  {"origin": "VIE", "destination": "WAW", "distance": 650},
+  {"origin": "VIE", "destination": "OTP", "distance": 550},
+  {"origin": "VIE", "destination": "ZRH", "distance": 700},
+  
+  {"origin": "ZRH", "destination": "MXP", "distance": 350},
+  {"origin": "ZRH", "destination": "GVA", "distance": 280},
+  {"origin": "ZRH", "destination": "STR", "distance": 200},
+  {"origin": "ZRH", "destination": "MUC", "distance": 300},
+  
+  {"origin": "MXP", "destination": "VCE", "distance": 240},
+  {"origin": "MXP", "destination": "FCO", "distance": 600},
+  {"origin": "MXP", "destination": "STR", "distance": 550},
+  {"origin": "MXP", "destination": "MUC", "distance": 550},
+  
+  {"origin": "FCO", "destination": "ATH", "distance": 1150},
+  {"origin": "FCO", "destination": "NAP", "distance": 230},
+  {"origin": "FCO", "destination": "VCE", "distance": 390},
+  
+  {"origin": "BRU", "destination": "FRA", "distance": 400},
+  {"origin": "BRU", "destination": "HAM", "distance": 600},
+  {"origin": "BRU", "destination": "CDG", "distance": 310},
+  
+  {"origin": "DUB", "destination": "LHR", "distance": 460},
+  {"origin": "DUB", "destination": "CDG", "distance": 900},
+  {"origin": "DUB", "destination": "AMS", "distance": 800},
+  
+  {"origin": "VLC", "destination": "BCN", "distance": 300},
+  {"origin": "VLC", "destination": "PMI", "distance": 350},
+  {"origin": "VLC", "destination": "IBZ", "distance": 380},
+  
+  {"origin": "SVQ", "destination": "AGP", "distance": 280},
+  {"origin": "SVQ", "destination": "LIS", "distance": 510},
+  
+  {"origin": "AGP", "destination": "ALC", "distance": 250},
+  
+  {"origin": "LIS", "destination": "SVQ", "distance": 510},
+  {"origin": "LIS", "destination": "PMI", "distance": 850},
+  
+  {"origin": "PMI", "destination": "IBZ", "distance": 150},
+  {"origin": "PMI", "destination": "VLC", "distance": 350},
+  
+  {"origin": "BIO", "destination": "MAD", "distance": 450},
+  {"origin": "BIO", "destination": "BCN", "distance": 600},
+  {"origin": "BIO", "destination": "CDG", "distance": 1100},
+  
+  {"origin": "PRG", "destination": "WAW", "distance": 520},
+  {"origin": "PRG", "destination": "BUD", "distance": 550},
+  {"origin": "PRG", "destination": "VIE", "distance": 330},
+  
+  {"origin": "WAW", "destination": "KRK", "distance": 270},
+  {"origin": "WAW", "destination": "BUD", "distance": 900},
+  {"origin": "WAW", "destination": "VIE", "distance": 650},
+  
+  {"origin": "BUD", "destination": "OTP", "distance": 650},
+  {"origin": "BUD", "destination": "VIE", "distance": 220},
+  
+  {"origin": "OTP", "destination": "SOF", "distance": 550},
+  
+  {"origin": "ATH", "destination": "SOF", "distance": 650},
+  
+  {"origin": "HAM", "destination": "CPH", "distance": 450},
+  {"origin": "HAM", "destination": "ARN", "distance": 1050},
+  {"origin": "HAM", "destination": "AMS", "distance": 400},
+  
+  {"origin": "CPH", "destination": "ARN", "distance": 650},
+  {"origin": "CPH", "destination": "AMS", "distance": 400},
+  
+  {"origin": "STR", "destination": "MUC", "distance": 180},
+  
+  {"origin": "MUC", "destination": "VIE", "distance": 600},
+  {"origin": "MUC", "destination": "PRG", "distance": 450},
+  
+  {"origin": "GVA", "destination": "ZRH", "distance": 280},
+  {"origin": "GVA", "destination": "MXP", "distance": 500},
+  
+  {"origin": "KRK", "destination": "WAW", "distance": 270},
+  {"origin": "KRK", "destination": "VIE", "distance": 800},
+  
+  {"origin": "VCE", "destination": "MXP", "distance": 240},
+  {"origin": "VCE", "destination": "FCO", "distance": 390}
+]

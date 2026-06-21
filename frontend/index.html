@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EuroSky Connect - Route Optimizer</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8Mk9Mvz9o8UTM5Ra37XJrAlMvAMByvXc"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .control-panel {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .algorithm-info {
+            background: #f0f4ff;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #555;
+            border-left: 4px solid #667eea;
+        }
+
+        #map {
+            width: 100%;
+            height: 500px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .results {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .route-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .info-card h3 {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .info-card .value {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .cost-breakdown {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .cost-breakdown h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .cost-item:last-child {
+            border-bottom: none;
+        }
+
+        .cost-item label {
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .cost-item .amount {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .error {
+            display: none;
+            background: #fee;
+            color: #c33;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .route-path {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .route-info {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✈️ EuroSky Connect</h1>
+            <p>Optimizador de Rutas Aéreas - Busca tu ruta más económica con 5 algoritmos</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <h2 style="margin-bottom: 30px; color: #333;">Buscar Ruta</h2>
+                
+                <div class="form-group">
+                    <label for="origin">Aeropuerto de Origen:</label>
+                    <select id="origin"></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="destination">Aeropuerto de Destino:</label>
+                    <select id="destination"></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="maxHours">Tiempo Máximo de Vuelo (horas):</label>
+                    <input type="number" id="maxHours" value="8" min="1" max="24" step="0.5">
+                </div>
+
+                <div class="form-group">
+                    <label for="algorithm">Algoritmo de Optimización:</label>
+                    <select id="algorithm">
+                        <option value="dijkstra">Dijkstra (Óptimo - Garantizado)</option>
+                        <option value="bfs">BFS (Ruta Más Corta en Hops)</option>
+                        <option value="dfs">DFS (Búsqueda en Profundidad)</option>
+                        <option value="montecarlo">Monte Carlo (Probabilístico - 1000 iter)</option>
+                        <option value="bellmanford">Bellman-Ford (Relajación Progresiva)</option>
+                    </select>
+                    <div class="algorithm-info" id="algorithmInfo">
+                        Dijkstra encuentra la ruta óptima garantizada minimizando costos.
+                    </div>
+                </div>
+
+                <button onclick="searchRoute()">🔍 Buscar Ruta Óptima</button>
+
+                <div class="loading" id="loading">
+                    <p>Buscando ruta óptima...</p>
+                </div>
+
+                <div class="error" id="error"></div>
+            </div>
+
+            <!-- Map -->
+            <div id="map"></div>
+        </div>
+
+        <!-- Results -->
+        <div class="results" id="results">
+            <h2 style="margin-bottom: 20px; color: #333;">Resultado de la Búsqueda</h2>
+            
+            <div class="route-path" id="routePath"></div>
+
+            <div class="route-info">
+                <div class="info-card">
+                    <h3>Costo Total</h3>
+                    <div class="value" id="totalCost">€0</div>
+                </div>
+                <div class="info-card">
+                    <h3>Tiempo de Vuelo</h3>
+                    <div class="value" id="totalTime">0h</div>
+                </div>
+                <div class="info-card">
+                    <h3>Avión Seleccionado</h3>
+                    <div class="value" id="aircraftName">-</div>
+                </div>
+                <div class="info-card">
+                    <h3>Algoritmo Usado</h3>
+                    <div class="value" id="algorithmUsed">-</div>
+                </div>
+            </div>
+
+            <div class="cost-breakdown">
+                <h3>Desglose de Costos</h3>
+                <div class="cost-item">
+                    <label>Combustible:</label>
+                    <span class="amount" id="costFuel">€0</span>
+                </div>
+                <div class="cost-item">
+                    <label>Tripulación:</label>
+                    <span class="amount" id="costCrew">€0</span>
+                </div>
+                <div class="cost-item">
+                    <label>Mantenimiento:</label>
+                    <span class="amount" id="costMaintenance">€0</span>
+                </div>
+                <div class="cost-item">
+                    <label>Tasas de Aterrizaje:</label>
+                    <span class="amount" id="costLanding">€0</span>
+                </div>
+                <div class="cost-item">
+                    <label>Servicios de Handling:</label>
+                    <span class="amount" id="costHandling">€0</span>
+                </div>
+                <div class="cost-item" style="border-top: 2px solid #667eea; margin-top: 10px; padding-top: 10px;">
+                    <label style="font-weight: bold;">TOTAL:</label>
+                    <span class="amount" style="font-size: 1.2em;" id="costTotal">€0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let map;
+        let routePolyline;
+
+        // Información de algoritmos
+        const algorithmDescriptions = {
+            dijkstra: "Dijkstra encuentra la ruta ÓPTIMA garantizada minimizando costos. Usa priority queue. Complejidad: O(E log V).",
+            bfs: "BFS encuentra la ruta más corta en número de hops (no en costo). Explora en amplitud.",
+            dfs: "DFS explora profundidad primero. Puede encontrar rutas pero no garantiza óptimo.",
+            montecarlo: "Monte Carlo prueba 1000 caminos aleatorios. Probabilístico, puede no encontrar óptimo.",
+            bellmanford: "Bellman-Ford usa relajación progresiva. Más lento que Dijkstra pero flexible."
+        };
+
+        // Actualizar descripción al cambiar algoritmo
+        document.getElementById('algorithm').addEventListener('change', function() {
+            const selected = this.value;
+            document.getElementById('algorithmInfo').textContent = algorithmDescriptions[selected];
+        });
+
+        // CARGAR AEROPUERTOS DESDE JSON
+        async function loadAirports() {
+            try {
+                const response = await fetch('../data/airports.json');
+                const airports = await response.json();
+                
+                const originSelect = document.getElementById('origin');
+                const destSelect = document.getElementById('destination');
+                
+                // Agregar opción por defecto a origin
+                const defaultOrigin = document.createElement('option');
+                defaultOrigin.value = '';
+                defaultOrigin.textContent = 'Selecciona un aeropuerto...';
+                originSelect.appendChild(defaultOrigin);
+                
+                // Agregar opción por defecto a destination
+                const defaultDest = document.createElement('option');
+                defaultDest.value = '';
+                defaultDest.textContent = 'Selecciona un aeropuerto...';
+                destSelect.appendChild(defaultDest);
+                
+                // Agregar todos los aeropuertos a ambos selects
+                airports.forEach(airport => {
+                    const option1 = document.createElement('option');
+                    option1.value = airport.iata;
+                    option1.textContent = `${airport.iata} - ${airport.name} (${airport.country})`;
+                    originSelect.appendChild(option1);
+                    
+                    const option2 = document.createElement('option');
+                    option2.value = airport.iata;
+                    option2.textContent = `${airport.iata} - ${airport.name} (${airport.country})`;
+                    destSelect.appendChild(option2);
+                });
+                
+                console.log(`[✓] Cargados ${airports.length} aeropuertos`);
+            } catch (error) {
+                console.error('Error cargando aeropuertos:', error);
+                showError('Error al cargar aeropuertos: ' + error.message);
+            }
+        }
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: { lat: 48.8566, lng: 2.3522 }, // Centered on Europe
+                mapTypeId: 'roadmap'
+            });
+        }
+
+        function searchRoute() {
+            const origin = document.getElementById('origin').value;
+            const destination = document.getElementById('destination').value;
+            const maxHours = document.getElementById('maxHours').value;
+            const algorithm = document.getElementById('algorithm').value;
+
+            if (!origin || !destination) {
+                showError('Por favor selecciona origen y destino');
+                return;
+            }
+
+            if (origin === destination) {
+                showError('El origen y destino deben ser diferentes');
+                return;
+            }
+
+            showLoading(true);
+            hideError();
+
+            // Enviar POST al servidor Node.js
+            fetch('/api/search-route', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    origin: origin,
+                    destination: destination,
+                    maxHours: parseFloat(maxHours),
+                    algorithm: algorithm
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                displayResults(data);
+                showLoading(false);
+            })
+            .catch(error => {
+                showError('Error: ' + error.message);
+                showLoading(false);
+            });
+        }
+
+        function displayResults(data) {
+            // Mostrar ruta
+            document.getElementById('routePath').textContent = 
+                '🛫 ' + data.ruta.join(' → ') + ' 🛬';
+
+            // Mostrar información
+            document.getElementById('totalCost').textContent = 
+                '€' + data.costo_total.toFixed(2);
+            document.getElementById('totalTime').textContent = 
+                data.tiempo_total.toFixed(2) + 'h';
+            document.getElementById('aircraftName').textContent = 
+                data.avion;
+            document.getElementById('algorithmUsed').textContent = 
+                data.algoritmo || 'Desconocido';
+
+            // Mostrar desglose
+            document.getElementById('costFuel').textContent = 
+                '€' + data.desglose.combustible.toFixed(2);
+            document.getElementById('costCrew').textContent = 
+                '€' + data.desglose.tripulacion.toFixed(2);
+            document.getElementById('costMaintenance').textContent = 
+                '€' + data.desglose.mantenimiento.toFixed(2);
+            document.getElementById('costLanding').textContent = 
+                '€' + data.desglose.aterrizaje.toFixed(2);
+            document.getElementById('costHandling').textContent = 
+                '€' + data.desglose.servicios.toFixed(2);
+            document.getElementById('costTotal').textContent = 
+                '€' + data.costo_total.toFixed(2);
+
+            // Mostrar resultados
+            document.getElementById('results').classList.add('show');
+
+            // LIMPIAR MAPA ANTERIOR
+            if (routePolyline) {
+                routePolyline.setMap(null);
+            }
+
+            // Dibujar nueva ruta
+            drawRouteOnMap(data.aeropuertos);
+        }
+
+        function drawRouteOnMap(airports) {
+            // Limpiar polyline anterior
+            if (routePolyline) {
+                routePolyline.setMap(null);
+            }
+
+            // Crear path
+            const path = airports.map(apt => ({
+                lat: parseFloat(apt.lat),
+                lng: parseFloat(apt.lng)
+            }));
+
+            // Dibujar línea
+            routePolyline = new google.maps.Polyline({
+                path: path,
+                geodesic: true,
+                strokeColor: '#667eea',
+                strokeOpacity: 0.8,
+                strokeWeight: 3,
+                map: map
+            });
+
+            // Agregar marcadores
+            airports.forEach(apt => {
+                new google.maps.Marker({
+                    position: {
+                        lat: parseFloat(apt.lat),
+                        lng: parseFloat(apt.lng)
+                    },
+                    map: map,
+                    title: apt.iata + ' - ' + apt.nombre
+                });
+            });
+
+            // Ajustar zoom al mapa
+            const bounds = new google.maps.LatLngBounds();
+            path.forEach(point => bounds.extend(point));
+            map.fitBounds(bounds);
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').classList.toggle('show', show);
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+        }
+
+        function hideError() {
+            document.getElementById('error').classList.remove('show');
+        }
+
+        // Inicializar al cargar
+        window.addEventListener('load', () => {
+            loadAirports();
+            initMap();
+        });
+    </script>
+</body>
+</html>

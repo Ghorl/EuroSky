@@ -1,0 +1,344 @@
+[
+  {
+    "iata": "MAD",
+    "name": "Madrid-Barajas",
+    "country": "Spain",
+    "latitude": 40.4168,
+    "longitude": -3.7038,
+    "landing_fee": 3500,
+    "handling_fee": 1200
+  },
+  {
+    "iata": "BCN",
+    "name": "Barcelona-El Prat",
+    "country": "Spain",
+    "latitude": 41.2974,
+    "longitude": 2.0833,
+    "landing_fee": 3000,
+    "handling_fee": 1100
+  },
+  {
+    "iata": "AGP",
+    "name": "Málaga-Costa del Sol",
+    "country": "Spain",
+    "latitude": 36.6749,
+    "longitude": -4.4991,
+    "landing_fee": 2500,
+    "handling_fee": 900
+  },
+  {
+    "iata": "SVQ",
+    "name": "Seville-San Pablo",
+    "country": "Spain",
+    "latitude": 37.4181,
+    "longitude": -5.8931,
+    "landing_fee": 2000,
+    "handling_fee": 800
+  },
+  {
+    "iata": "ALC",
+    "name": "Alicante-Elche",
+    "country": "Spain",
+    "latitude": 38.2822,
+    "longitude": -0.5582,
+    "landing_fee": 2200,
+    "handling_fee": 850
+  },
+  {
+    "iata": "VLC",
+    "name": "Valencia",
+    "country": "Spain",
+    "latitude": 39.4899,
+    "longitude": -0.4811,
+    "landing_fee": 2400,
+    "handling_fee": 900
+  },
+  {
+    "iata": "AMS",
+    "name": "Amsterdam Airport Schiphol",
+    "country": "Netherlands",
+    "latitude": 52.3086,
+    "longitude": 4.7639,
+    "landing_fee": 4500,
+    "handling_fee": 1400
+  },
+  {
+    "iata": "CDG",
+    "name": "Paris Charles de Gaulle",
+    "country": "France",
+    "latitude": 49.0127,
+    "longitude": 2.5500,
+    "landing_fee": 4200,
+    "handling_fee": 1350
+  },
+  {
+    "iata": "LHR",
+    "name": "London Heathrow",
+    "country": "United Kingdom",
+    "latitude": 51.4700,
+    "longitude": -0.4543,
+    "landing_fee": 5000,
+    "handling_fee": 1500
+  },
+  {
+    "iata": "FRA",
+    "name": "Frankfurt am Main",
+    "country": "Germany",
+    "latitude": 50.0379,
+    "longitude": 8.5622,
+    "landing_fee": 4300,
+    "handling_fee": 1400
+  },
+  {
+    "iata": "DUB",
+    "name": "Dublin Airport",
+    "country": "Ireland",
+    "latitude": 53.4264,
+    "longitude": -6.2499,
+    "landing_fee": 3800,
+    "handling_fee": 1200
+  },
+  {
+    "iata": "ZRH",
+    "name": "Zurich Airport",
+    "country": "Switzerland",
+    "latitude": 47.4647,
+    "longitude": 8.5492,
+    "landing_fee": 4100,
+    "handling_fee": 1300
+  },
+  {
+    "iata": "VIE",
+    "name": "Vienna International",
+    "country": "Austria",
+    "latitude": 48.1111,
+    "longitude": 16.5697,
+    "landing_fee": 3600,
+    "handling_fee": 1150
+  },
+  {
+    "iata": "PRG",
+    "name": "Prague Václav Havel",
+    "country": "Czech Republic",
+    "latitude": 50.1008,
+    "longitude": 14.2658,
+    "landing_fee": 3000,
+    "handling_fee": 950
+  },
+  {
+    "iata": "WAW",
+    "name": "Warsaw Chopin",
+    "country": "Poland",
+    "latitude": 52.1656,
+    "longitude": 21.0214,
+    "landing_fee": 2800,
+    "handling_fee": 900
+  },
+  {
+    "iata": "BUD",
+    "name": "Budapest Ferenc Liszt",
+    "country": "Hungary",
+    "latitude": 47.4261,
+    "longitude": 19.2611,
+    "landing_fee": 2700,
+    "handling_fee": 880
+  },
+  {
+    "iata": "BRU",
+    "name": "Brussels-Zaventem",
+    "country": "Belgium",
+    "latitude": 50.9009,
+    "longitude": 4.4844,
+    "landing_fee": 3700,
+    "handling_fee": 1200
+  },
+  {
+    "iata": "FCO",
+    "name": "Rome Fiumicino",
+    "country": "Italy",
+    "latitude": 41.8002,
+    "longitude": 12.2388,
+    "landing_fee": 3400,
+    "handling_fee": 1100
+  },
+  {
+    "iata": "MXP",
+    "name": "Milan Malpensa",
+    "country": "Italy",
+    "latitude": 45.6306,
+    "longitude": 8.7281,
+    "landing_fee": 3300,
+    "handling_fee": 1050
+  },
+  {
+    "iata": "VCE",
+    "name": "Venice Marco Polo",
+    "country": "Italy",
+    "latitude": 45.5050,
+    "longitude": 12.3519,
+    "landing_fee": 2900,
+    "handling_fee": 920
+  },
+  {
+    "iata": "ATH",
+    "name": "Athens Eleftherios Venizelos",
+    "country": "Greece",
+    "latitude": 37.9253,
+    "longitude": 23.9436,
+    "landing_fee": 2600,
+    "handling_fee": 850
+  },
+  {
+    "iata": "LIS",
+    "name": "Lisbon Portela",
+    "country": "Portugal",
+    "latitude": 38.7813,
+    "longitude": -9.1353,
+    "landing_fee": 2500,
+    "handling_fee": 800
+  },
+  {
+    "iata": "OTP",
+    "name": "Bucharest Otopeni",
+    "country": "Romania",
+    "latitude": 44.5711,
+    "longitude": 26.1000,
+    "landing_fee": 2400,
+    "handling_fee": 780
+  },
+  {
+    "iata": "SOF",
+    "name": "Sofia Airport",
+    "country": "Bulgaria",
+    "latitude": 42.6977,
+    "longitude": 23.4144,
+    "landing_fee": 2200,
+    "handling_fee": 720
+  },
+  {
+    "iata": "IBZ",
+    "name": "Ibiza Airport",
+    "country": "Spain",
+    "latitude": 38.8728,
+    "longitude": 1.3744,
+    "landing_fee": 2300,
+    "handling_fee": 750
+  },
+  {
+    "iata": "PMI",
+    "name": "Palma de Mallorca",
+    "country": "Spain",
+    "latitude": 39.5517,
+    "longitude": 2.7397,
+    "landing_fee": 2600,
+    "handling_fee": 870
+  },
+  {
+    "iata": "BIO",
+    "name": "Bilbao",
+    "country": "Spain",
+    "latitude": 43.3007,
+    "longitude": -2.9111,
+    "landing_fee": 2400,
+    "handling_fee": 800
+  },
+  {
+    "iata": "SVG",
+    "name": "Seville Airport",
+    "country": "Spain",
+    "latitude": 37.4181,
+    "longitude": -5.8931,
+    "landing_fee": 2000,
+    "handling_fee": 800
+  },
+  {
+    "iata": "NAP",
+    "name": "Naples Capodichino",
+    "country": "Italy",
+    "latitude": 40.8862,
+    "longitude": 14.2910,
+    "landing_fee": 2800,
+    "handling_fee": 900
+  },
+  {
+    "iata": "BIO",
+    "name": "Bilbao",
+    "country": "Spain",
+    "latitude": 43.3007,
+    "longitude": -2.9111,
+    "landing_fee": 2400,
+    "handling_fee": 800
+  },
+  {
+    "iata": "GVA",
+    "name": "Geneva Cointrin",
+    "country": "Switzerland",
+    "latitude": 46.2381,
+    "longitude": 6.1093,
+    "landing_fee": 3900,
+    "handling_fee": 1250
+  },
+  {
+    "iata": "KRK",
+    "name": "Krakow John Paul II",
+    "country": "Poland",
+    "latitude": 50.0777,
+    "longitude": 19.7849,
+    "landing_fee": 2600,
+    "handling_fee": 850
+  },
+  {
+    "iata": "STR",
+    "name": "Stuttgart",
+    "country": "Germany",
+    "latitude": 48.6895,
+    "longitude": 9.2212,
+    "landing_fee": 3500,
+    "handling_fee": 1100
+  },
+  {
+    "iata": "ARN",
+    "name": "Stockholm Arlanda",
+    "country": "Sweden",
+    "latitude": 59.6519,
+    "longitude": 17.9289,
+    "landing_fee": 4000,
+    "handling_fee": 1250
+  },
+  {
+    "iata": "CPH",
+    "name": "Copenhagen Airport",
+    "country": "Denmark",
+    "latitude": 55.6181,
+    "longitude": 12.6560,
+    "landing_fee": 3800,
+    "handling_fee": 1200
+  },
+  {
+    "iata": "HAM",
+    "name": "Hamburg",
+    "country": "Germany",
+    "latitude": 53.6304,
+    "longitude": 9.9879,
+    "landing_fee": 3400,
+    "handling_fee": 1100
+  },
+  {
+    "iata": "MUC",
+    "name": "Munich",
+    "country": "Germany",
+    "latitude": 48.3538,
+    "longitude": 11.7861,
+    "landing_fee": 3600,
+    "handling_fee": 1150
+  },
+  {
+    "iata": "ORY",
+    "name": "Paris Orly",
+    "country": "France",
+    "latitude": 48.7250,
+    "longitude": 2.3597,
+    "landing_fee": 3900,
+    "handling_fee": 1250
+  }
+]

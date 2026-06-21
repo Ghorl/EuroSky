@@ -1,0 +1,33 @@
+{
+    "aeropuertos": [
+        {
+            "iata": "MAD",
+            "lat": 40.4168,
+            "lng": -3.7038,
+            "nombre": "Madrid-Barajas"
+        },
+        {
+            "iata": "VLC",
+            "lat": 39.4899,
+            "lng": -0.4811,
+            "nombre": "Valencia"
+        }
+    ],
+    "algoritmo": "Dijkstra",
+    "avion": "Bombardier Dash 8-400",
+    "costo_total": 4762.5,
+    "desglose": {
+        "aterrizaje": 2400.0,
+        "combustible": 1890.0,
+        "mantenimiento": 315.0,
+        "servicios": 900.0,
+        "tripulacion": 630.0
+    },
+    "destino": "VLC",
+    "origen": "MAD",
+    "ruta": [
+        "MAD",
+        "VLC"
+    ],
+    "tiempo_total": 0.75
+}

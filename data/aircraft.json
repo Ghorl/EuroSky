@@ -1,0 +1,152 @@
+[
+  {
+    "id": "A320",
+    "model_name": "Airbus A320",
+    "capacity_passengers": 180,
+    "fuel_consumption_per_hour": 2400,
+    "cruise_speed_kmh": 800,
+    "max_range_km": 6300,
+    "crew_cost_per_hour": 1200,
+    "maintenance_cost_per_hour": 600
+  },
+  {
+    "id": "B737",
+    "model_name": "Boeing 737-800",
+    "capacity_passengers": 162,
+    "fuel_consumption_per_hour": 2300,
+    "cruise_speed_kmh": 790,
+    "max_range_km": 5440,
+    "crew_cost_per_hour": 1150,
+    "maintenance_cost_per_hour": 580
+  },
+  {
+    "id": "A220",
+    "model_name": "Airbus A220-300",
+    "capacity_passengers": 130,
+    "fuel_consumption_per_hour": 1850,
+    "cruise_speed_kmh": 820,
+    "max_range_km": 6150,
+    "crew_cost_per_hour": 1100,
+    "maintenance_cost_per_hour": 520
+  },
+  {
+    "id": "B787",
+    "model_name": "Boeing 787-9",
+    "capacity_passengers": 242,
+    "fuel_consumption_per_hour": 3500,
+    "cruise_speed_kmh": 900,
+    "max_range_km": 14685,
+    "crew_cost_per_hour": 1400,
+    "maintenance_cost_per_hour": 800
+  },
+  {
+    "id": "A350",
+    "model_name": "Airbus A350-900",
+    "capacity_passengers": 236,
+    "fuel_consumption_per_hour": 3300,
+    "cruise_speed_kmh": 910,
+    "max_range_km": 15000,
+    "crew_cost_per_hour": 1380,
+    "maintenance_cost_per_hour": 780
+  },
+  {
+    "id": "ATR72",
+    "model_name": "ATR 72-600",
+    "capacity_passengers": 78,
+    "fuel_consumption_per_hour": 420,
+    "cruise_speed_kmh": 520,
+    "max_range_km": 2650,
+    "crew_cost_per_hour": 800,
+    "maintenance_cost_per_hour": 400
+  },
+  {
+    "id": "Q400",
+    "model_name": "Bombardier Dash 8-400",
+    "capacity_passengers": 90,
+    "fuel_consumption_per_hour": 480,
+    "cruise_speed_kmh": 560,
+    "max_range_km": 2700,
+    "crew_cost_per_hour": 820,
+    "maintenance_cost_per_hour": 410
+  },
+  {
+    "id": "A321",
+    "model_name": "Airbus A321neo",
+    "capacity_passengers": 220,
+    "fuel_consumption_per_hour": 2600,
+    "cruise_speed_kmh": 820,
+    "max_range_km": 7400,
+    "crew_cost_per_hour": 1250,
+    "maintenance_cost_per_hour": 620
+  },
+  {
+    "id": "B767",
+    "model_name": "Boeing 767-300",
+    "capacity_passengers": 218,
+    "fuel_consumption_per_hour": 3100,
+    "cruise_speed_kmh": 880,
+    "max_range_km": 12400,
+    "crew_cost_per_hour": 1320,
+    "maintenance_cost_per_hour": 700
+  },
+  {
+    "id": "A380",
+    "model_name": "Airbus A380-800",
+    "capacity_passengers": 555,
+    "fuel_consumption_per_hour": 4700,
+    "cruise_speed_kmh": 900,
+    "max_range_km": 15000,
+    "crew_cost_per_hour": 1800,
+    "maintenance_cost_per_hour": 950
+  },
+  {
+    "id": "B777",
+    "model_name": "Boeing 777-300ER",
+    "capacity_passengers": 330,
+    "fuel_consumption_per_hour": 3800,
+    "cruise_speed_kmh": 905,
+    "max_range_km": 14685,
+    "crew_cost_per_hour": 1500,
+    "maintenance_cost_per_hour": 850
+  },
+  {
+    "id": "A330",
+    "model_name": "Airbus A330-300",
+    "capacity_passengers": 295,
+    "fuel_consumption_per_hour": 3400,
+    "cruise_speed_kmh": 890,
+    "max_range_km": 13600,
+    "crew_cost_per_hour": 1420,
+    "maintenance_cost_per_hour": 780
+  },
+  {
+    "id": "E190",
+    "model_name": "Embraer E190",
+    "capacity_passengers": 114,
+    "fuel_consumption_per_hour": 1650,
+    "cruise_speed_kmh": 870,
+    "max_range_km": 4444,
+    "crew_cost_per_hour": 1050,
+    "maintenance_cost_per_hour": 500
+  },
+  {
+    "id": "CRJ900",
+    "model_name": "Bombardier CRJ900",
+    "capacity_passengers": 90,
+    "fuel_consumption_per_hour": 1400,
+    "cruise_speed_kmh": 860,
+    "max_range_km": 3204,
+    "crew_cost_per_hour": 1000,
+    "maintenance_cost_per_hour": 480
+  },
+  {
+    "id": "A319",
+    "model_name": "Airbus A319",
+    "capacity_passengers": 124,
+    "fuel_consumption_per_hour": 2100,
+    "cruise_speed_kmh": 810,
+    "max_range_km": 6300,
+    "crew_cost_per_hour": 1100,
+    "maintenance_cost_per_hour": 540
+  }
+]
